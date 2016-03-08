@@ -67,5 +67,23 @@ function ufcoe_crumbs_alter_breadcrumbs(&$breadcrumbs) {
 				$breadcrumbs[$all_index + 1]['title'] = $all_title;
 			}
 		}
+	} else if (!empty($breadcrumbs)) {
+
+		// Fully rebuild breadcrum
+		$newBreadcrumbs = array();
+
+		if ($page_owner instanceof ElggGroup) {
+			$newBreadcrumbs[] = array(
+				'link' => 'groups/all',
+				'title' => elgg_echo('groups'),
+			);
+		}
+
+		$newBreadcrumbs[] = array(
+			'link' => $page_owner->getURL(),
+			'title' => $page_owner->name
+		);
+
+		$breadcrumbs = $newBreadcrumbs;
 	}
 }
